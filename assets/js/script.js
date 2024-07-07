@@ -36,3 +36,11 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
 
 });
+
+//date picker
+$( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+
+
+
