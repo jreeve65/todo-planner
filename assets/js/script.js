@@ -17,9 +17,9 @@ function generateTaskId() {
 function createTaskCard(task) {
   //read data from local storage
   const col = $("#todo-cards");
-  const cardToAdd = $("<section></section>");
-  const cardBody =$("<div></div>");
-  const cardBodyHeader=$("<h4></h4>")
+  const cardToAdd = $("<section>");
+  const cardBody =$("<div>");
+  const cardBodyHeader=$("<h4>")
   cardToAdd.addClass("card");
   cardBody.addClass("card-body");
   cardBodyHeader.addClass("card-title");
