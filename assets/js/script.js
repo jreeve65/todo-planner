@@ -6,12 +6,12 @@ const taskDateInput = $("#datepicker");
 const taskTitleInput = $("#taskTitleFormControl1");
 const taskDiscripInput = $("#taskDiscriptionFormControl1");
 // array do I even need this????
-function readProjectsFromStorage(){
+function readProjectsFromStorage() {
   // creates variable to parse information in local storage 
   let taskList = JSON.parse(localStorage.getItem("tasks"));
   // if local storage currently has nothing in it create an empty array in local storage
-  if(!taskList) {
-    taskList =[];
+  if (!taskList) {
+    taskList = [];
   }
   //return local storage reference so one can use it as a variable in later functions
   return taskList;
@@ -24,7 +24,7 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-  const card =$('<div>').addClass('task-card daggable my-4').attr('') // refer to mini projcet solution
+  const card = $('<div>').addClass('task-card daggable my-4').attr('') // refer to mini projcet solution
 
   //create a master element with the class of card
   // fill out elements of new card class with info from local storage
@@ -40,9 +40,9 @@ function renderTaskList() {
 }
 
 // Handles the creation of a new task and stores the task in local storage why does the modal form save the info from the previous task?
-function handleAddTask(event){
+function handleAddTask(event) {
   // event.preventDefault();
-  if(taskDateInput.val().trim() === "" || taskTitleInput.val().trim() ===""| taskDiscripInput.val().trim() ==="") {
+  if (taskDateInput.val().trim() === "" || taskTitleInput.val().trim() === "" | taskDiscripInput.val().trim() === "") {
     console.log("fill out all fields please");
     return;
   }
@@ -50,17 +50,18 @@ function handleAddTask(event){
     date: taskDateInput.val(),
     title: taskTitleInput.val(),
     discription: taskDiscripInput.val(),
+    status: "to-do",
   }
-  
- const taskList =readProjectsFromStorage();
- taskList.push(newTask);
- localStorage.setItem("tasks",JSON.stringify(taskList));
 
-  
+  const taskList = readProjectsFromStorage();
+  taskList.push(newTask);
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+
+
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event){
+function handleDeleteTask(event) {
 
 }
 
@@ -72,12 +73,12 @@ function handleDrop(event, ui) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
   //date picker
-$( function() {
-  $( "#datepicker" ).datepicker();
-} );
+  $(function () {
+    $("#datepicker").datepicker();
+  });
 
-// event listener
-$("#newTask").click(handleAddTask);
+  // event listener
+  $("#newTask").click(handleAddTask);
 
 
 });
