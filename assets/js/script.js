@@ -1,12 +1,21 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+
 let nextId = JSON.parse(localStorage.getItem("nextId")); //for deletion I assume?
 //query selectors
-const taskDate = $("#datepicker");
-const taskTitle = $("#taskTitleFormControl1");
-const taskDiscrip = $("#taskDiscriptionFormControl1");
+const taskDateInput = $("#datepicker");
+const taskTitleInput = $("#taskTitleFormControl1");
+const taskDiscripInput = $("#taskDiscriptionFormControl1");
 // array do I even need this????
-const toDoList = [];
+function readProjectsFromStorage(){
+  // creates variable to parse information in local storage 
+  let taskList = JSON.parse(localStorage.getItem("tasks"));
+  // if local storage currently has nothing in it create an empty array in local storage
+  if(!taskList) {
+    taskList =[];
+  }
+  //return local storage reference so one can use it as a variable in later functions
+  return taskList;
+}
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -15,19 +24,12 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-  //read data from local storage
-  const col = $("#todo-cards");
-  const cardToAdd = $("<section>");
-  const cardBody =$("<div>");
-  const cardBodyHeader=$("<h4>")
-  cardToAdd.addClass("card");
-  cardBody.addClass("card-body");
-  cardBodyHeader.addClass("card-title");
-  cardBodyHeader.text(taskList.title);
+  const card =$('<div>').addClass('task-card daggable my-4').attr('')
+
   //create a master element with the class of card
   // fill out elements of new card class with info from local storage
   //pin card to to do list
-  col.append(cardToAdd,cardBody,cardBodyHeader);
+  // col.append(cardToAdd,cardBody,cardBodyHeader);
   // createTaskCard(taskList);  
 
 }
@@ -45,9 +47,9 @@ function handleAddTask(event){
     return;
   }
   const newTask = {
-    date: taskDate.val(),
-    title: taskTitle.val(),
-    discription: taskDiscrip.val(),
+    date: taskDateInput.val(),
+    title: taskTitleInput.val(),
+    discription: taskDiscripInput.val(),
   }
   
   toDoList.push(newTask);
