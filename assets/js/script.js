@@ -42,7 +42,7 @@ function renderTaskList() {
 // Handles the creation of a new task and stores the task in local storage why does the modal form save the info from the previous task?
 function handleAddTask(event){
   // event.preventDefault();
-  if(taskDate.val().trim() === "" || taskTitle.val().trim() ===""| taskDiscrip.val().trim() ==="") {
+  if(taskDateInput.val().trim() === "" || taskTitleInput.val().trim() ===""| taskDiscripInput.val().trim() ==="") {
     console.log("fill out all fields please");
     return;
   }
@@ -52,10 +52,9 @@ function handleAddTask(event){
     discription: taskDiscripInput.val(),
   }
   
-  toDoList.push(newTask);
-  localStorage.setItem("tasks",JSON.stringify(toDoList));
-  // localStorage.setItem("tasks",JSON.stringify(newTask));
-  createTaskCard(taskList);
+ const taskList =readProjectsFromStorage();
+ taskList.push(newTask);
+ localStorage.setItem("tasks",JSON.stringify(taskList));
 
   
 }
