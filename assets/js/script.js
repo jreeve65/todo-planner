@@ -24,7 +24,7 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-  const card =$('<div>').addClass('task-card daggable my-4').attr('')
+  const card =$('<div>').addClass('task-card daggable my-4').attr('') // refer to mini projcet solution
 
   //create a master element with the class of card
   // fill out elements of new card class with info from local storage
