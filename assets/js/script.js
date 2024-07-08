@@ -5,8 +5,8 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 const taskDate = $("#datepicker");
 const taskTitle = $("#taskTitleFormControl1");
 const taskDiscrip = $("#taskDiscriptionFormControl1");
-// array 
-const toDoList = [];
+// array do I even need this????
+// const toDoList = [];
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -36,8 +36,10 @@ function handleAddTask(event){
     discription: taskDiscrip.val(),
   }
   
-  toDoList.push(newTask);
-  console.log(toDoList);
+  // toDoList.push(newTask);
+  // localStorage.setItem("tasks",JSON.stringify(toDoList));
+  localStorage.setItem("tasks",JSON.stringify(newTask));
+  
 }
 
 // Todo: create a function to handle deleting a task
