@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId")); //for deletion i assume!
+let nextId = JSON.parse(localStorage.getItem("nextId")); //for deletion I assume?
 //query selectors
 const taskDate = $("#datepicker");
 const taskTitle = $("#taskTitleFormControl1");
@@ -23,7 +23,7 @@ function renderTaskList() {
 
 }
 
-// Todo: create a function to handle adding a new task
+// Handles the creation of a new task and stores the task in local storage why does the modal form save the info from the previous task?
 function handleAddTask(event){
   // event.preventDefault();
   if(taskDate.val().trim() === "" || taskTitle.val().trim() ===""| taskDiscrip.val().trim() ==="") {
@@ -54,15 +54,15 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
-
-});
-
-//date picker
+  //date picker
 $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
+  $( "#datepicker" ).datepicker();
+} );
 
 // event listener
 $("#newTask").click(handleAddTask);
+
+
+});
 
 
