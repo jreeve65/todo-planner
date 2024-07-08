@@ -2,7 +2,7 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 //query selectors
-const taskDate = $("#datePicker");
+const taskDate = $("#datepicker");
 const taskTitle = $("#taskTitleFormControl1");
 const taskDiscrip = $("#taskDiscriptionFormControl1");
 // array 
