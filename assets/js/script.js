@@ -23,7 +23,7 @@ function createTaskCard(task) {
   cardToAdd.addClass("card");
   cardBody.addClass("card-body");
   cardBodyHeader.addClass("card-title");
-  cardBodyHeader.text(task.taskTitle);
+  cardBodyHeader.text(taskList.taskTitle);
   //create a master element with the class of card
   // fill out elements of new card class with info from local storage
   //pin card to to do list
