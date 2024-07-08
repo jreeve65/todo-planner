@@ -56,6 +56,9 @@ function handleAddTask(event) {
   const taskList = readProjectsFromStorage();
   taskList.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(taskList));
+  taskDateInput.val('');
+  taskTitleInput.val('');
+  taskDiscripInput.val('');
 
 
 }
