@@ -23,12 +23,12 @@ function createTaskCard(task) {
   cardToAdd.addClass("card");
   cardBody.addClass("card-body");
   cardBodyHeader.addClass("card-title");
-  cardBodyHeader.text(taskList.taskTitle);
+  cardBodyHeader.text(taskList.title);
   //create a master element with the class of card
   // fill out elements of new card class with info from local storage
   //pin card to to do list
-  col.after(cardToAdd,cardBody,cardBody);
-  createTaskCard(taskList);  
+  col.append(cardToAdd,cardBody,cardBodyHeader);
+  // createTaskCard(taskList);  
 
 }
 
@@ -53,6 +53,8 @@ function handleAddTask(event){
   // toDoList.push(newTask);
   // localStorage.setItem("tasks",JSON.stringify(toDoList));
   localStorage.setItem("tasks",JSON.stringify(newTask));
+  createTaskCard(taskList);
+
   
 }
 
