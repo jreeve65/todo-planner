@@ -15,6 +15,20 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
+  //read data from local storage
+  const col = $("#todo-cards");
+  const cardToAdd = $("<section></section>");
+  const cardBody =$("<div></div>");
+  const cardBodyHeader=$("<h4></h4>")
+  cardToAdd.addClass("card");
+  cardBody.addClass("card-body");
+  cardBodyHeader.addClass("card-title");
+  cardBodyHeader.text(task.taskTitle);
+  //create a master element with the class of card
+  // fill out elements of new card class with info from local storage
+  //pin card to to do list
+  col.after(cardToAdd,cardBody,cardBody);
+  createTaskCard(taskList);  
 
 }
 
