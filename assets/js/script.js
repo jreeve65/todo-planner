@@ -1,6 +1,6 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+let nextId = JSON.parse(localStorage.getItem("nextId")); //for deletion i assume!
 //query selectors
 const taskDate = $("#datepicker");
 const taskTitle = $("#taskTitleFormControl1");
@@ -26,7 +26,7 @@ function renderTaskList() {
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
   // event.preventDefault();
-  if(taskDate === "".trim() || taskTitle ==="".trim() || taskDiscrip ==="".trim()) {
+  if(taskDate.val().trim() === "" || taskTitle.val().trim() ===""| taskDiscrip.val().trim() ==="") {
     console.log("fill out all fields please");
     return;
   }
