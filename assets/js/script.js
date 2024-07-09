@@ -29,16 +29,17 @@ function createTaskCard(task) {
   const cardBody = $('<div>').addClass('card-body');
   const cardDiscript = $('<p>').addClass('card-text').text(task.discription);
   const cardDueDate = $('<p>').addClass('card-text').text(task.date);
-  const cardDeleteBtn =$('<button>').addClass('btn btn-danger delete').text('Delete').attr('id',task.id);
-  cardDeleteBtn.on('click',handleDeleteTask);
+  const cardDeleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete').attr('id', task.id); //task id is generated with math. random
+  cardDeleteBtn.on('click', handleDeleteTask);
 
   //conditionals for different style cards based on due date
 
-  
+
   //pin card to to do list
-  cardBody.append(cardDueDate,cardDiscript,cardDeleteBtn);
-  card.append(cardHeader,cardBody);
-  
+  cardBody.append(cardDueDate, cardDiscript, cardDeleteBtn);
+  card.append(cardHeader, cardBody);
+  return card;
+
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -54,16 +55,16 @@ function renderTaskList() {
 
   // iterate over local storage and create cards each iteration needs to check the status of the data so that it renders the card in the proper spot.
   for (const task of taskList) {
-    if(task.status ==='to-do'){
+    if (task.status === 'to-do') {
       toDoList.append(createTaskCard(task));
     }
-    else if(task.status ==='in-progress'){
+    else if (task.status === 'in-progress') {
       inProgressList.append(createTaskCard(task));
     }
-    else if(task.status === 'done'){
+    else if (task.status === 'done') {
       doneList.append(createTaskCard(task));
     }
-    
+
   }
 
 }
@@ -76,7 +77,7 @@ function handleAddTask(event) {
     return;
   }
   const newTask = {
-    id: Math.floor(Math.random()*1000),
+    id: Math.floor(Math.random() * 1000),
     date: taskDateInput.val(),
     title: taskTitleInput.val(),
     discription: taskDiscripInput.val(),
@@ -86,6 +87,7 @@ function handleAddTask(event) {
   const taskList = readProjectsFromStorage();
   taskList.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(taskList));
+  renderTaskList();
   taskDateInput.val('');
   taskTitleInput.val('');
   taskDiscripInput.val('');
@@ -112,6 +114,8 @@ $(document).ready(function () {
 
   // event listener
   $("#newTask").click(handleAddTask);
+
+  renderTaskList();
 
 
 });
