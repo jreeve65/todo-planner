@@ -29,7 +29,7 @@ function createTaskCard(task) {
   const cardBody = $('<div>').addClass('card-body');
   const cardDiscript = $('<p>').addClass('card-text').text(task.discription);
   const cardDueDate = $('<p>').addClass('card-text').text(task.date);
-  const cardDeleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete').attr('data-task-id', task.id); //task id is generated with math. random
+  const cardDeleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete').attr('data-task-id', task.id); //task id is generated with cryptorandomuuid()
   cardDeleteBtn.on('click', handleDeleteTask);
 
   //conditionals for different style cards based on due date
