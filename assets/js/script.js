@@ -24,18 +24,47 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-  const card = $('<div>').addClass('task-card daggable my-4').attr('') // refer to mini projcet solution
+  const card = $('<div>').addClass('task-card draggable my-4'); // refer to mini projcet solution still need to add id to this
+  const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
+  const cardBody = $('<div>').addClass('card-body');
+  const cardDiscript = $('<p>').addClass('card-text').text(task.discription);
+  const cardDueDate = $('<p>').addClass('card-text').text(task.date);
+  const cardDeleteBtn =$('<button>').addClass('btn btn-danger delete').text('Delete').attr('id',task.id);
+  cardDeleteBtn.on('click',handleDeleteTask);
 
-  //create a master element with the class of card
-  // fill out elements of new card class with info from local storage
+  //conditionals for different style cards based on due date
+
+  
   //pin card to to do list
-  // col.append(cardToAdd,cardBody,cardBodyHeader);
-  // createTaskCard(taskList);  
-
+  cardBody.append(cardDueDate,cardDiscript,cardDeleteBtn);
+  card.append(cardHeader,cardBody);
+  
 }
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
+  //read local storage data
+  const taskList = readProjectsFromStorage();
+  const toDoList = $('#todo-cards');
+  const inProgressList = $('#in-progress-cards');
+  const doneList = $('#done-cards');
+  toDoList.empty();
+  inProgressList.empty();
+  doneList.empty();
+
+  // iterate over local storage and create cards each iteration needs to check the status of the data so that it renders the card in the proper spot.
+  for (const task of taskList) {
+    if(task.status ==='to-do'){
+      toDoList.append(createTaskCard(task));
+    }
+    else if(task.status ==='in-progress'){
+      inProgressList.append(createTaskCard(task));
+    }
+    else if(task.status === 'done'){
+      doneList.append(createTaskCard(task));
+    }
+    
+  }
 
 }
 
@@ -47,6 +76,7 @@ function handleAddTask(event) {
     return;
   }
   const newTask = {
+    id: Math.floor(Math.random()*1000),
     date: taskDateInput.val(),
     title: taskTitleInput.val(),
     discription: taskDiscripInput.val(),
