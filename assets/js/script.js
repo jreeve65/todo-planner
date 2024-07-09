@@ -66,6 +66,9 @@ function renderTaskList() {
     }
 
   }
+  $( function() {
+    $( ".draggable" ).draggable();
+  } );
 
 }
 
@@ -112,11 +115,25 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+  const taskList =readProjectsFromStorage();
+  const myTaskId = ui.draggable[0].dataset.projectId;
+  const newStatus = event.target.id;
+
+  for (const task of taskList) {
+    if(task.id === myTaskId){
+      task.status = newStatus;
+    }
+    localStorage.setItem('tasks',JSON.stringify(taskList));
+    renderTaskList();
+  }
 
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+
+  renderTaskList();
+
   //date picker
   $(function () {
     $("#datepicker").datepicker();
@@ -124,10 +141,13 @@ $(document).ready(function () {
 
   // event listener
   $("#newTask").click(handleAddTask);
-
-  renderTaskList();
-
-
+  
+  // makes lanes dropable
+  $(".lane").droppable({
+    accept:".draggable",
+    drop: handleDrop,
+  })
+  
 });
 
 
