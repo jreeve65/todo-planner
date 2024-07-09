@@ -29,7 +29,7 @@ function createTaskCard(task) {
   const cardBody = $('<div>').addClass('card-body');
   const cardDiscript = $('<p>').addClass('card-text').text(task.discription);
   const cardDueDate = $('<p>').addClass('card-text').text(task.date);
-  const cardDeleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete').attr('id', task.id); //task id is generated with math. random
+  const cardDeleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete').attr('data-task-id', task.id); //task id is generated with math. random
   cardDeleteBtn.on('click', handleDeleteTask);
 
   //conditionals for different style cards based on due date
@@ -77,7 +77,7 @@ function handleAddTask(event) {
     return;
   }
   const newTask = {
-    id: Math.floor(Math.random() * 1000),
+    id: crypto.randomUUID(),
     date: taskDateInput.val(),
     title: taskTitleInput.val(),
     discription: taskDiscripInput.val(),
@@ -97,6 +97,16 @@ function handleAddTask(event) {
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
+  const taskList = readProjectsFromStorage();
+  const taskId =$(this).attr('data-task-id');
+  for(let i =0; i< taskList.length;i++) {
+    if(taskList[i].id === taskId){
+      taskList.splice(taskList[i],1);
+    }
+  }
+  localStorage.setItem("tasks",JSON.stringify(taskList));  
+  renderTaskList();
+
 
 }
 
