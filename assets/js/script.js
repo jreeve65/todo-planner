@@ -24,7 +24,7 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-  const card = $('<div>').addClass('task-card draggable my-4'); // refer to mini projcet solution still need to add id to this
+  const card = $('<div>').addClass('card zindex task-card draggable my-4').attr('data-task-id',task.id); // refer to mini projcet solution still need to add id to this
   const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
   const cardBody = $('<div>').addClass('card-body');
   const cardDiscript = $('<p>').addClass('card-text').text(task.discription);
@@ -36,7 +36,7 @@ function createTaskCard(task) {
 
 
   //pin card to to do list
-  cardBody.append(cardDueDate, cardDiscript, cardDeleteBtn);
+  cardBody.append(cardDiscript, cardDueDate, cardDeleteBtn);
   card.append(cardHeader, cardBody);
   return card;
 
@@ -66,9 +66,13 @@ function renderTaskList() {
     }
 
   }
-  $( function() {
-    $( ".draggable" ).draggable();
-  } );
+  
+    $( ".draggable" ).draggable({
+      opacity:0.7,
+      zIndex: 100,
+    });
+
+  
 
 }
 
@@ -116,7 +120,7 @@ function handleDeleteTask(event) {
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
   const taskList =readProjectsFromStorage();
-  const myTaskId = ui.draggable[0].dataset.projectId;
+  const myTaskId = ui.draggable[0].dataset.taskId;
   const newStatus = event.target.id;
 
   for (const task of taskList) {
