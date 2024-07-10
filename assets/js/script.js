@@ -1,11 +1,11 @@
 // Retrieve tasks and nextId from localStorage
 
-let nextId = JSON.parse(localStorage.getItem("nextId")); //for deletion I assume?
+let nextId = JSON.parse(localStorage.getItem("nextId")); 
 //query selectors
 const taskDateInput = $("#datepicker");
 const taskTitleInput = $("#taskTitleFormControl1");
 const taskDiscripInput = $("#taskDiscriptionFormControl1");
-// array do I even need this????
+
 function readProjectsFromStorage() {
   // creates variable to parse information in local storage 
   let taskList = JSON.parse(localStorage.getItem("tasks"));
@@ -46,9 +46,11 @@ function createTaskCard(task) {
 function renderTaskList() {
   //read local storage data
   const taskList = readProjectsFromStorage();
+  //creates variables for each lane to beable to delete copies before rerendering
   const toDoList = $('#todo-cards');
   const inProgressList = $('#in-progress-cards');
   const doneList = $('#done-cards');
+ //deletes old layout
   toDoList.empty();
   inProgressList.empty();
   doneList.empty();
@@ -66,7 +68,7 @@ function renderTaskList() {
     }
 
   }
-  
+  //jquery code to make cards draggable
     $( ".draggable" ).draggable({
       opacity:0.7,
       zIndex: 100,
@@ -83,6 +85,7 @@ function handleAddTask(event) {
     console.log("fill out all fields please");
     return;
   }
+  //object to store in storage
   const newTask = {
     id: crypto.randomUUID(),
     date: taskDateInput.val(),
@@ -90,7 +93,7 @@ function handleAddTask(event) {
     discription: taskDiscripInput.val(),
     status: "to-do",
   }
-
+//
   const taskList = readProjectsFromStorage();
   taskList.push(newTask);
   localStorage.setItem("tasks", JSON.stringify(taskList));
@@ -102,27 +105,35 @@ function handleAddTask(event) {
 
 }
 
-// Todo: create a function to handle deleting a task
+// deletes a task
 function handleDeleteTask(event) {
+  //gets data from local storage
   const taskList = readProjectsFromStorage();
+  //grabs the task id of delete button pressed
   const taskId =$(this).attr('data-task-id');
+  //finds the item within storage and removes it
   for(let i =0; i< taskList.length;i++) {
     if(taskList[i].id === taskId){
       taskList.splice(taskList[i],1);
     }
   }
+  //updates storage to new array after deletion
   localStorage.setItem("tasks",JSON.stringify(taskList));  
+  //refreshes the page.
   renderTaskList();
 
 
 }
 
-// Todo: create a function to handle dropping a task into a new status lane
+//function handles drop event
 function handleDrop(event, ui) {
+  //read info from storage
   const taskList =readProjectsFromStorage();
+  //takes the id from the ui of the grabed target
   const myTaskId = ui.draggable[0].dataset.taskId;
+  //gets the name of the lane its being dropped in
   const newStatus = event.target.id;
-
+//renders page and updates the statuses based on the info provided
   for (const task of taskList) {
     if(task.id === myTaskId){
       task.status = newStatus;
@@ -133,7 +144,7 @@ function handleDrop(event, ui) {
 
 }
 
-// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
+
 $(document).ready(function () {
 
   renderTaskList();
